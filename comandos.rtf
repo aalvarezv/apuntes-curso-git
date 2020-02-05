@@ -1,0 +1,300 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red27\green31\blue34;\red204\green203\blue60;\red34\green79\blue188;
+\red30\green45\blue55;\red244\green244\blue244;\red31\green36\blue45;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18039;\cssrgb\c83611\c82454\c29969;\csgenericrgb\c13206\c30848\c73913;
+\cssrgb\c15294\c23137\c27843;\cssrgb\c96471\c96471\c96471;\cssrgb\c16078\c18824\c23137;\cssrgb\c100000\c100000\c100000;}
+\margl1440\margr1440\vieww28600\viewh15000\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 cuando se usan dos guiones seguidos git interpreta que el comando es una palabra ejemplo:\
+
+\f1\b \'97-oneline
+\f0\b0  cuando uso un gui\'f3n git interpreta que cada letra es un comando, ejemplo 
+\f1\b git status -sb
+\f0\b0  es lo mismo que 
+\f1\b git status -s -b
+\f0\b0 \
+\
+
+\f1\b #Configuracion Inicial
+\f0\b0 \
+git config \'97global user.name \'93aalvarezv\'94\
+git config \'97global user.email \'93alvarez.vargas@gmail.com\'94\
+git config \'97global -e 
+\f1\b #obtiene informaci\'f3n de la configuraci\'f3n global del usuario en un editor de texto.
+\f0\b0 \
+\
+\
+
+\f1\b #Comandos b\'e1sicos.
+\f0\b0 \
+git init\
+\
+git status\
+git status -s 
+\f1\b #muestra la informaci\'f3n con menos detalles.
+\f0\b0 \
+git status -s -b 
+\f1\b #muestra la informaci\'f3n con menos detalles, agrega a la informaci\'f3n la rama en cual estamos trabajando.
+\f0\b0 \
+git add . \
+git add index.html 
+\f1\b #agrega solo el archivo index.html
+\f0\b0 \
+git add *.txt 
+\f1\b #agrega todos los txt en el directorio actual
+\f0\b0 \
+git add \'93*.txt\'94 
+\f1\b #agrega todos los txt de todo el proyecto
+\f0\b0 \
+git add css/ 
+\f1\b #agrega todos los archivos de la carpeta css
+\f0\b0 \
+git add css/*.pdf 
+\f1\b #agrega todos los archivos .pdf de la carpeta css
+\f0\b0 \
+git add \'97all 
+\f1\b #agrega todos los archivos.
+\f0\b0 \
+\
+git reset *.xml 
+\f1\b #excluye archivos del commit.
+\f0\b0 \
+\
+git commit -m \'93Primer commit\'94\
+\
+git log 
+\f1\b #entrega el historial de los commit.
+\f0\b0 \
+git log --oneline 
+\f1\b #muestra el historial de los commit escrito de una forma mas corta, no agrega fecha hora y otros datos.
+\f0\b0 \
+git log --oneline --decorate \'97-all \'97-graph 
+\f1\b #muestra el historial de los commit de forma mas gr\'e1fica y entendible.
+\f0\b0 \
+\
+\
+
+\f1\b #Crear alias
+\f0\b0 \
+git config -\'97global alias.lg \'93log \'97-oneline \'97-decorate \'97-all \'97-graph\'94\
+git config \'97-global alias.s \'93status -s -b\'94\
+  \
+
+\f1\b #GitHub
+\f0\b0 \
+\pard\pardeftab720\sl320\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+git remote add origin https://github.com/aalvarezv/nombre-repositorio.git\
+git push -u origin master\
+\
+
+\f1\b #Viajes en el tiempo.
+\f0\b0 \
+HEAD 
+\f1\b #apunta al ultimo commit
+\f0\b0 \
+HEAD^ 
+\f1\b #si ya hice el commit y quiero modificarlo entonces esto abre nuevamente el commit deseado.
+\f0\b0 \
+\
+git diff 
+\f1\b #entrega las diferencias entre el ultimo commit vs lo que existe actualmente.
+\f0\b0  \
+git diff \'97-stageg 
+\f1\b #entrega todos los archivos que est\'e1n en el stage, son aquellos que se les hizo un git add -A\
+\
+#Ir al pasado.
+\f0\b0 \
+git reset HEAD README.md 
+\f1\b #para quitar un archivo del stage.
+\f0\b0 \
+git checkout \'97- README.md  
+\f1\b #para revertir los \'faltimos cambios en un archivo. \
+
+\f0\b0 git commit -am \'93Mensaje\'94
+\f1\b  #aplica el git add + git commit.\
+
+\f0\b0 git commit \'97-amend \'93Actualizando mensaje\'94
+\f1\b  #actualiza el mensaje del ultimo commit.\
+
+\f0\b0 git reset \'97-soft HEAD^ 
+\f1\b #deshace el ultimo commit.\
+
+\f0\b0 git reset \'97-soft \cf3 \cb4 \kerning1\expnd0\expndtw0 \CocoaLigature0 a26ef2d\cf2 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  
+\f1\b #\cf5 \cb6 elimina los commits posteriores al commit al que estas haciendo el reset\cb1 , \cb6 conserva los cambios en el stage area (git add)\cb1  y \cb6 conserva los cambios que tengas en tus archivos (working directory)\cf2 \cb1 \
+
+\f0\b0 git reset --mixed \cf3 \cb4 \kerning1\expnd0\expndtw0 \CocoaLigature0 1cb6d0f\cf2 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  
+\f1\b #\cf5 \cb6 elimina los commits posteriores al commit al que estas haciendo el reset, deshace los cambios en el stage area (git add) y conserva los cambios que tengas en tus archivos (working directory)\
+
+\f0\b0 \cf2 \cb1 git reset \'97-hard \cf3 \cb4 \kerning1\expnd0\expndtw0 \CocoaLigature0 1cb6d0f\cf2 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  
+\f1\b #\cf5 \cb6 elimina los commits posteriores al commit al que estas haciendo el reset\cb1 , \cb6 deshace los cambios en el stage area\cb1  y \cb6 deshace los cambios que tengas en tus archivos (working directory)\
+\
+#GitHub\
+
+\f0\b0 git push -f origin HEAD^:master
+\f1\b  #Deshace el ultimo commit enviado a GitHub.\
+
+\f0\b0 \cb1 \
+
+\f1\b #Ir al presente.\
+
+\f0\b0 git reflog 
+\f1\b #incluye los reset en el log, con esto se pueden obtener los hash y hacer nuevamente un git reset --hard para volver atras.\
+\
+\
+#renombrar y eliminar archivos, permite tener un registro en git, en caso que desee volver a tener el archivo eliminado o su nombre cambiado.\
+#Mediante comandos Git\
+
+\f0\b0 git mv destruir-mundo.txt salvar-mundo.txt 
+\f1\b #cambia el nombre del archivo de destruir-mundo.txt a salvar-mundo.txt\
+
+\f0\b0 git rm salvar-mundo.txt 
+\f1\b #elimina el archivo salvar-mundo.txt\
+\
+#Sin Git (Eliminar directo desde la carpeta (explorador del sistema operativo) o desde visual studio code.\
+
+\f0\b0 git add -u 
+\f1\b #avisa a git sobre el cambio realizado, para actualizar el estado.\
+\
+\
+#Ramas\
+Se utilizan para hacer cambios en paralelo sin afectar el proyecto inicial ejemplo: agregar una funcionalidad que no se tiene claridad si ser\'e1 o no integrada al proyecto final.\
+\
+
+\f0\b0 git branch rama-villanos 
+\f1\b #crea una rama.\
+
+\f0\b0 git branch 
+\f1\b #Lista las ramas creadas.\
+
+\f0\b0 git checkout rama-villanos 
+\f1\b #cambia a la rama indicada. \
+\
+\
+#Para unir ramas (merge) ejemplo: creo la rama rama-villanos para agregar una nueva funcionalidad del programa, esta funcionalidad no es seguro que sea implementada en el proyecto final y por ello se cre\'f3 esta rama, la rama tendr\'e1 los commit que se hayan hecho hasta terminar la nueva funcionalidad. Luego deciden qu\'e9 esta funcionalidad se debe pasar al proyecto final. Entonces me ubico en la rama principal para el ejemplo ser\'eda la rama master. Luego hago un merge de la rama-villanos hacia la rama master, es decir todos los cambios agregados en la rama-villanos se pasar\'e1n a la rama master. Y finalmente como buena pr\'e1ctica se elimina la rama-villanos ya que no seguir\'e1 siendo utilizada.\
+\
+\pard\pardeftab720\sl320\sa210\partightenfactor0
+\cf7 \cb8 Merge: Fast-forward
+\f0\b0 \
+\pard\pardeftab720\sl300\sa210\partightenfactor0
+\cf7 Es cuando en la rama principal no ha habido ning\'fan cambio\'a0 y por lo tanto cuando se hace la uni\'f3n de ramas, se unen de manera autom\'e1tica sin que haya problemas (es entonces cuando\'a0
+\f1\b los commits de la rama secundaria pasan a formar parte de la rama principal
+\f0\b0 ).\
+\pard\pardeftab720\sl320\sa210\partightenfactor0
+
+\f1\b \cf7 Merge: Autom\'e1tico
+\f0\b0 \
+\pard\pardeftab720\sl300\sa210\partightenfactor0
+\cf7 Es cuando en la rama principal si tienes un cambio y en la rama secundaria tambi\'e9n (en ese caso el archivo modificado en la rama principal es distinto al archivo modificado en la rama secundaria).
+\f1\b \cf5 \cb1 \
+\pard\pardeftab720\sl320\partightenfactor0
+\cf5 Merge: Uniones conflicto\
+
+\f0\b0 Es cuando en un dos ramas se hace un commit a un mismo archivo, al hacer la union (merge) git no sabe cual de los 2 cambios del archivo se debe conservar por lo tanto se debe resolver el conflicto abriendo el archivo, modificarlo para dejar como se requiere finalmente el archivo y luego hacer un commit. 
+\f1\b \
+\
+
+\f0\b0 git diff rama-villanos master 
+\f1\b #entrega las diferencias entre las ramas indicadas en este caso rama-villanos y rama master.\
+
+\f0\b0 git checkout master 
+\f1\b #cambia a la rama indicada.\
+
+\f0\b0 git merge rama-villanos 
+\f1\b #Une los cambios que estan en la rama villanos a la rama en la cual estoy posicionado en este caso de ejemplo master.\
+
+\f0\b0 git branch -d rama-villanos 
+\f1\b #Elimina una rama.\
+
+\f0\b0 git checkout -b rama-villano 
+\f1\b #Crea la rama y posiciona en ella.\
+\
+\
+#TAGS \
+El prop\'f3sito de los tag es marcar hitos del desarrollo, ejemplo cuando creo la primera versi\'f3n de producci\'f3n. Android crea sus tag con nombres de dulces.\
+
+\f0\b0 git tag nombreTag
+\f1\b # crea un tag.\
+
+\f0\b0 git tag -d nombreTag 
+\f1\b #elimina un tag\
+
+\f0\b0 git tag -a v1.0.0 -m \'93Versi\'f3n 1.0.0\'94 
+\f1\b #agrega un tag con mas informaci\'f3n.\
+
+\f0\b0 git tag -a v0.0.9 \cf3 \cb4 \kerning1\expnd0\expndtw0 \CocoaLigature0 d0fa820\cf5 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  -m \'93Version alfa\'94 
+\f1\b #agrega un tag al commit, usa el hash del commit.\
+
+\f0\b0 git show v0.0.9 #
+\f1\b muestra informaci\'f3n del tag usa el n\'famero de versi\'f3n.\
+\
+\
+#STASH\
+
+\f0\b0 git stash save 
+\f1\b #Es como una caja donde se guarda de forma temporal todo el trabajo en progreso y que no se desea incluir en un commit, Ejemplo: Tengo avanzado el requerimiento A y me piden otro requerimiento B mas urgente, el requerimiento A lo dejo en el stash, hago el requerimiento B y le hago el commit. Y luego recupero del stash el WIP (WORK IN PROGRESS) del requerimiento A.\
+
+\f0\b0 git stash list
+\f1\b  #Permite listar todos los stashes creados.\
+
+\f0\b0 git stash pop #
+\f1\b Permite recuperar el trabajo guardado del \'faltimo stash creado y tambi\'e9n elimina el stash. \
+
+\f0\b0 git stash apply #
+\f1\b Permite recuperar el trabajo guardado del \'faltimo stash creado\
+
+\f0\b0 git stash apply stash@\{1\} 
+\f1\b #Permite recuperar un stash en particular del listado de stash. El id del stash a recuperar es: 
+\f0\b0 stash@\{1\}
+\f1\b \
+Al igual que en los merge de ramas, puede que existan problemas de conflicto al hacer el pop. Estos se resuelven igual que en las ramas, de forma manual se dejan los archivo(s) como se requieren y luego hacer un commit. En caso que existan conflictos el stash no ser\'e1 eliminado y para ello se debe usar el comando drop.
+\f0\b0 \
+git stash drop 
+\f1\b #Permite borrar el \'faltimo stash creado.\
+
+\f0\b0 git stash drop stash@\{1\} 
+\f1\b #Permite borrar un stash en particular del listado de stash. El id del stash a borrar es: 
+\f0\b0 stash@\{1\}
+\f1\b \
+
+\f0\b0 git stash save \'97-keep-index 
+\f1\b #Guarda todo menos los archivos en el stage o los que se les hizo git add -A\
+
+\f0\b0 git stash save \'97-include-untracked
+\f1\b  #Incluye todos los archivos junto a los que git no les est\'e1 haciendo seguimiento (aquellos que nunca se les ha hecho un git add)\
+
+\f0\b0 git stash list \'97-stat 
+\f1\b #Entrega mas informaci\'f3n de cada una de los stash listados.\
+
+\f0\b0 git show stash 
+\f1\b #Entrega informaci\'f3n mucho mas detallada de cada stash creado. las diferencias de los archivos antes y despues de crear el stash, etc.\
+
+\f0\b0 git show stash@\{1\}
+\f1\b  #Entrega informaci\'f3n mucho mas detallada de un stash en particular.\
+
+\f0\b0 git stash save \'93Mensaje del stash\'94
+\f1\b  #Agrega un stash con un mensaje de informaci\'f3n.\
+
+\f0\b0 git stash clear
+\f1\b  #Borra todas las entradas que hay en el stash, no pregunta, las borra y no hay manera de recuperarlas.\
+\
+\
+\
+\
+\
+\
+
+\f0\b0 \
+
+\f1\b \cb6 \
+\cf2 \cb1 \
+
+\f0\b0 \
+\
+}
