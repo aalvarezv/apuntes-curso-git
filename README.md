@@ -85,6 +85,7 @@ Se utilizan para hacer cambios en paralelo sin afectar el proyecto inicial ejemp
 | ------ | ------ |
 |git branch rama-villanos | Crea una rama.|
 |git branch | Lista las ramas creadas.|
+|git branch -a| Lista las ramas incluyendo las ocultas.|
 |git branch -d rama-villanos | Elimina una rama.|
 |git checkout rama-villanos | Mueve a la rama indicada.|
 |git checkout -b rama-villano | Crea la rama y posiciona en ella.|
@@ -135,5 +136,171 @@ Es como una caja donde se guarda de forma temporal todo el trabajo en progreso y
 |git show stash@{1} | Entrega información mucho mas detallada de un stash en particular.|
 |git stash clear | Borra todas las entradas que hay en el stash, no pregunta, las borra y no hay manera de recuperarlas.|
 
+#### Rebase
+
+Si tengo dos ramas trabajando en paralelo, el comando rebase permite que los commit organizar los commit.
+
+| Comando | Descripción |
+| ------ | ------ |
+|git checkout rama-misiones-completadas| Me ubico en la rama que queremos que sus commits queden al final de la línea de tiempo.|
+|git rebase master | Los commits de la rama indicada en este caso (master) se ubicarán antes de la rama que estoy posicionado (rama-misiones-completadas).|
+
+Luego de hacer el rebase se debe aplicar un merge para unir las ramas y queden ubicadas en el mismo punto de la linea de tiempo. Es decir en el HEAD.
+| Comando | Descripción |
+| ------ | ------ |
+|git checkout master| Me ubico en la rama principal master.|
+|git merge rama-misiones-completadas| Une los cambios desde la rama misiones-completas hacia la rama master.|
+|git branch -d rama-misiones-completadas | Se elimina la rama rama-misiones-completadas en caso de ser necesario.|
+
+#### Rebase Interactivo
+**Se usa para:**
+* Ordenar commits.
+* Corregir mensajes en los commits.
+* Unir commits.
+* Separar commits.
+
+#### Rebase Squatch
+Permite unir commits. Ejemplo: Tengo dos commits donde actualicé cierta información en ciertos archivos, esta información esta relacionada pero lo hice en dos commit y quiero que estos dos commits se transformen en uno.
+| Comando | Descripción |
+| ------ | ------ |
+|git rebase -i HEAD~4| Toma los últimos 4 commits donde se deberá indicar cual comando aplicar a cada commit.|
+
+**Al aplicar el comando devuelve lo siguiente:**
+* pick 158ba9e Se agrego a la liga: Volcán Negro
+* pick df3c52a Agregamos el archivo de las misiones completadas
+* pick ba0faea Actualizamos dos misiones completadas al momento
+* pick eadaddd Actualizamos las misiones completadas
+
+**Comandos:**
+* p, pick <commit> = use commit
+* r, reword <commit> = use commit, but edit the commit message
+* e, edit <commit> = use commit, but stop for amending
+* s, squash <commit> = use commit, but meld into previous commit
+* f, fixup <commit> = like "squash", but discard this commit's log message
+* x, exec <command> = run command (the rest of the line) using shell
+* b, break = stop here (continue rebase later with 'git rebase --continue')
+* d, drop <commit> = remove commit
+* l, label <label> = label current HEAD with a name
+* t, reset <label> = reset HEAD to a label
+* m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+* .       create a merge commit using the original merge commit's
+* .       message (or the oneline, if no original merge commit was
+* .       specified). Use -c <commit> to reword the commit message.
+
+**Si quiero unir los últimos dos commits:**
+* pick ba0faea Actualizamos dos misiones completadas al momento
+* pick eadaddd Actualizamos las misiones completadas
+
+**En el último commit cambiamos el pick por squash, con esto se unirá el commit que tiene el squash con el commit anterior.**
+* pick 158ba9e Se agrego a la liga: Volcán Negro
+* pick df3c52a Agregamos el archivo de las misiones completadas
+* **pick ba0faea Actualizamos dos misiones completadas al momento**
+* **squash eadaddd Actualizamos las misiones completadas**
+
+Finalmente se actualiza el mensaje que tendrá el commit.
+
+#### Rebase Reword
+Permite cambiar el mensaje de un commit utilizando el rebase.
+
+| Comando | Descripción |
+| ------ | ------ |
+|git rebase -i HEAD~1| Toma el último commits.|
+
+**Al aplicar el comando devuelve lo siguiente:**
+* pick 5e6043e Unimos los commits mediante squash donde actualizamos dos misiones completadas al momento
+
+**Comandos:**
+* p, pick <commit> = use commit
+* r, reword <commit> = use commit, but edit the commit message
+* e, edit <commit> = use commit, but stop for amending
+* s, squash <commit> = use commit, but meld into previous commit
+* f, fixup <commit> = like "squash", but discard this commit's log message
+* x, exec <command> = run command (the rest of the line) using shell
+* b, break = stop here (continue rebase later with 'git rebase --continue')
+* d, drop <commit> = remove commit
+* l, label <label> = label current HEAD with a name
+* t, reset <label> = reset HEAD to a label
+* m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+* .       create a merge commit using the original merge commit's
+* .       message (or the oneline, if no original merge commit was
+* .       specified). Use -c <commit> to reword the commit message.
+
+**Si quiero cambiar el mensaje del commit: En el commit cambiamos el pick por reword.**
+
+* **reword 5e6043e Unimos los commits mediante squash donde actualizamos dos misiones completadas al momento**
+
+Finalmente se actualiza el mensaje que tendrá el commit.
+
+#### Rebase Edit
+
+Permite editar un commit, puede ser para separarlo en dos o mas commit. Para este caso de ejemplo se modificaron 2 archivos README.md y villanos.md. Ambos se dejaron en el último commit con el mensaje "Commits".
+
+| Comando | Descripción |
+| ------ | ------ |
+|git rebase -i HEAD~2| Toma los dos últimos commits.|
+
+**Al aplicar el comando devuelve lo siguiente:**
+* pick 1c466c7 Actualizamos el mensaje mediante reword dos misiones completadas al momento
+* pick 1e03da6 Commits
+
+**Comandos:**
+* p, pick <commit> = use commit
+* r, reword <commit> = use commit, but edit the commit message
+* e, edit <commit> = use commit, but stop for amending
+* s, squash <commit> = use commit, but meld into previous commit
+* f, fixup <commit> = like "squash", but discard this commit's log message
+* x, exec <command> = run command (the rest of the line) using shell
+* b, break = stop here (continue rebase later with 'git rebase --continue')
+* d, drop <commit> = remove commit
+* l, label <label> = label current HEAD with a name
+* t, reset <label> = reset HEAD to a label
+* m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+* .       create a merge commit using the original merge commit's
+* .       message (or the oneline, if no original merge commit was
+* .       specified). Use -c <commit> to reword the commit message.
+
+**Si quiero editar el último commit para separarlo en 2 (para este de ejemplo)**
+* pick 1c466c7 Actualizamos el mensaje mediante reword dos misiones completadas al momento
+* **edit 1e03da6 Commits**
+
+**Luego se aplica un reset del commit para eliminarlo sin modificar los archivos.**
+| Comando | Descripción |
+| ------ | ------ |
+|git reset HEAD^| Aplica un reset al último commit.|
+
+**Seguido se agregan los archivos al stage y se crean los commit necesarios.**
+| Comando | Descripción |
+| ------ | ------ |
+|git add README.md| Agrega el archivo README.md al stage.|
+|git commit -m "Actualizamos el archivo README.md" | Aplica un commit para archivo README.md.|
+|git add villanos.md| Agrega el archivo villanos.md al stage.|
+|git commit -m "Agregamos Deadshot el archivo villanos.md" | Aplica un commit para archivo villanos.md.|
+
+**Finalmente se cierra el rebase.**
+| Comando | Descripción |
+| ------ | ------ |
+|git rebase --continue | Finaliza la edición del rebase|
+
+Se puede observar la división de los commits.
+
 #### GitHub
-git push -f origin HEAD^:master #Deshace el ultimo commit enviado a GitHub.
+
+**https://help.github.com/es/github**
+
+| Comando | Descripción |
+| ------ | ------ |
+|git remote add origin https://github.com/user/repo.git| Agrega un directorio remoto a mi repositorio.|
+|git remote -v| Lista los repositorios remotos de mi repositorio local.|
+|git push -u origin master| Envía los commits (confirmaciones de cambios) a un repositorio remoto.|
+|git push --tags|Envía los tags de mi repositorio local al repositorio remoto.|
+|git pull origin master| Trae los últimos cambios del repositorio remoto al repositorio local y realiza un merge|
+|git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY| Para clonar un repositorio remoto a mi máquina.|
+|git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY demo-10| Para clonar un repositorio remoto a mi máquina e indicar el nombre que debe tener la carpeta.|
+|git fetch| Al contrario del git pull fetch baja los cambios sin hacerles merge localmente, los deja en una rama oculta llamada remotes/origin/master|
+|git checkout FETCH_HEAD| Permite posicionarme en la rama oculta creada por el fetch para revisar los cambios antes de hacer el pull|
+|git checkout origin/master| Permite posicionarme en la rama oculta creada por el fetch para revisar los cambios antes de hacer el pull|
+|git push -f origin HEAD^:master |Deshace el ultimo commit enviado a GitHub.|
+
+##### MarkDown
+https://www.markdowntutorial.com/
+
