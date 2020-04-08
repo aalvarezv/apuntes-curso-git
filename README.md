@@ -283,9 +283,9 @@ Permite editar un commit, puede ser para separarlo en dos o mas commit. Para est
 
 Se puede observar la división de los commits.
 
-#### GitHub
+#### GITHUB
 
-**https://help.github.com/es/github**
+[**Ir Ayuda GitHub**](https://help.github.com/es/github)
 
 | Comando | Descripción |
 | ------ | ------ |
@@ -302,5 +302,4 @@ Se puede observar la división de los commits.
 |git push -f origin HEAD^:master |Deshace el ultimo commit enviado a GitHub.|
 
 ##### MarkDown
-https://www.markdowntutorial.com/
-
+[**Ir Tutorial MarkDown**](https://www.markdowntutorial.com/)
