@@ -299,7 +299,15 @@ Se puede observar la división de los commits.
 |git fetch| Al contrario del git pull fetch baja los cambios sin hacerles merge localmente, los deja en una rama oculta llamada remotes/origin/master|
 |git checkout FETCH_HEAD| Permite posicionarme en la rama oculta creada por el fetch para revisar los cambios antes de hacer el pull|
 |git checkout origin/master| Permite posicionarme en la rama oculta creada por el fetch para revisar los cambios antes de hacer el pull|
-|git push -f origin HEAD^:master |Deshace el ultimo commit enviado a GitHub.|
+|git push origin origin :rama-villanos| Permite eliminar una rama desde el repositorio local y remoto, generalmente son ramas que se obtienen mediante git pull.|
+|git remote prune origin| Permite borrar ramas obtenidas mediante pull cuando solo tenemos la rama en nuestro repositorio local, ya que en el repositorio remoto (GitHub) la hemos borrado con anterioridad.|
+
+##### Deshacer último commit en Github y Repositorio Local, comandos complementarios.
+
+| Comando | Descripción |
+| ------ | ------ |
+|git reset HEAD^| Ubica el HEAD en el commit anterior en el repositorio local|
+|git push origin +HEAD| Obliga (force-push) a que el commit donde se encuentra el HEAD en el repositorio local, sea el último commit en el repositorio remoto es decir en Github|
 
 ##### MarkDown
 [**Ir Tutorial MarkDown**](https://www.markdowntutorial.com/)
